@@ -1,4 +1,4 @@
-module github.com/shadowsocks/go-shadowsocks2
+module github.com/seancheung/go-shadowsocks2
 
 go 1.16
 

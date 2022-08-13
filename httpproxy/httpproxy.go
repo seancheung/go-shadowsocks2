@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/shadowsocks/go-shadowsocks2/socks"
+	"github.com/seancheung/go-shadowsocks2/socks"
 )
 
 func Handshake(rw io.ReadWriter) (socks.Addr, error) {

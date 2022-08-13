@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/shadowsocks/go-shadowsocks2/socks"
-	"github.com/shadowsocks/go-shadowsocks2/httpproxy"
+	"github.com/seancheung/go-shadowsocks2/socks"
+	"github.com/seancheung/go-shadowsocks2/httpproxy"
 )
 
 // Create a SOCKS server listening on addr and proxy to server.
