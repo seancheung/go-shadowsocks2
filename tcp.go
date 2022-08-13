@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/shadowsocks/go-shadowsocks2/socks"
+	"github.com/shadowsocks/go-shadowsocks2/httpproxy"
 )
 
 // Create a SOCKS server listening on addr and proxy to server.
@@ -202,4 +203,9 @@ func (w *corkedConn) Write(p []byte) (int, error) {
 		return w.bufw.Write(p)
 	}
 	return w.Conn.Write(p)
+}
+
+func httpLocal(addr, server string, shadow func(net.Conn) net.Conn) {
+	logf("http proxy %s <-> %s", addr, server)
+	tcpLocal(addr, server, shadow, func(c net.Conn) (socks.Addr, error) { return httpproxy.Handshake(c) })
 }

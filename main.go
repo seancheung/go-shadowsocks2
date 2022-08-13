@@ -43,6 +43,7 @@ func main() {
 		TCP        bool
 		Plugin     string
 		PluginOpts string
+		HttpProxy  string
 	}
 
 	flag.BoolVar(&config.Verbose, "verbose", false, "verbose mode")
@@ -64,6 +65,7 @@ func main() {
 	flag.BoolVar(&flags.TCP, "tcp", true, "(server-only) enable TCP support")
 	flag.BoolVar(&config.TCPCork, "tcpcork", false, "coalesce writing first few packets")
 	flag.DurationVar(&config.UDPTimeout, "udptimeout", 5*time.Minute, "UDP tunnel timeout")
+	flag.StringVar(&flags.HttpProxy, "http-proxy", "", "(client-only) http CONNECT listen address")
 	flag.Parse()
 
 	if flags.Keygen > 0 {
@@ -177,6 +179,9 @@ func main() {
 		}
 		if flags.TCP {
 			go tcpRemote(addr, ciph.StreamConn)
+		}
+		if flags.HttpProxy != "" {
+			go httpLocal(flags.HttpProxy, addr, ciph.StreamConn)
 		}
 	}
 
